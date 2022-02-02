@@ -1,0 +1,73 @@
+ENV['VAGRANT_HOME'] = 'D:/VMware-VMs/vagrant'
+ENV['VAGRANT_VMWARE_CLONE_DIRECTORY'] = 'D:/VMware-VMs/vagrant'
+
+Vagrant.configure("2") do |config|
+
+    config.vm.define "guacamole" do |guacamole|
+
+        guacamole.vm.box = "generic/ubuntu2110"
+
+        guacamole.vm.provider "vmware_desktop" do |v, override|
+            v.gui = true
+            v.linked_clone = false
+            v.vmx["memsize"] = "4096"
+            v.vmx["numvcpus"] = "2"
+        end
+    
+        guacamole.vm.provision:shell, inline: <<-SHELL
+            echo "root:rootroot" | sudo chpasswd
+            sudo timedatectl set-timezone Europe/Berlin
+        SHELL
+    
+        guacamole.vm.define "guacamole" do |ubuntu|
+            ubuntu.vm.hostname = "guacamole"
+            
+        end
+
+        guacamole.vm.network :forwarded_port, guest: 443, host: 443, id: "https-traefik"
+        guacamole.vm.network :forwarded_port, guest: 8088, host: 8080, id: "dashboard-traefik"
+        guacamole.vm.network :forwarded_port, guest: 8081, host: 8081, id: "http-guacamole"
+  
+        # Full upgrade
+        #guacamole.vm.provision :shell, inline: "sudo apt-get -y update -y && sudo apt-get -y upgrade"
+        #guacamole.vm.provision :shell, inline: "sudo apt-get -y autoremove --purge"
+        #guacamole.vm.provision :shell, inline: "sudo reboot"
+
+        # Install packages to allow apt to use a repository over HTTPS
+        guacamole.vm.provision :shell, inline: "sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common git"
+
+        # Updating the Local Repository
+        guacamole.vm.provision :shell, inline: "sudo apt update"
+
+        # Installing Docker
+        guacamole.vm.provision :shell, inline: "sudo apt -y install docker.io docker-compose"
+
+        # Starting Docker Service 
+        guacamole.vm.provision :shell, inline: "sudo systemctl start docker"
+        guacamole.vm.provision :shell, inline: "sudo systemctl enable docker"
+
+        # Create folder structure
+        guacamole.vm.provision :shell, inline: "sudo mkdir -p /srv/workfromhome-with-docker"
+        guacamole.vm.provision :shell, inline: "sudo mkdir -p /srv/workfromhome-with-docker/guac_conf"
+        guacamole.vm.provision :shell, inline: "sudo mkdir -p /srv/workfromhome-with-docker/guac_home"
+        guacamole.vm.provision :shell, inline: "sudo mkdir -p /srv/workfromhome-with-docker/mysql_init"
+        guacamole.vm.provision :shell, inline: "sudo mkdir -p /srv/workfromhome-with-docker/traefik_conf"
+
+        # Copy files to folders
+        #config.vm.provision :file, source: ".env", destination: "/srv/workfromhome-with-docker/.env"
+        #config.vm.provision :file, source: "docker-compose.yml", destination: "/srv/workfromhome-with-docker/docker-compose.yml"
+        #config.vm.provision :file, source: "start.sh", destination: "/srv/workfromhome-with-docker/start.sh"
+        #config.vm.provision :file, source: "guac_conf/server.xml", destination: "/srv/workfromhome-with-docker/guac_conf/server.xml"
+        #config.vm.provision :file, source: "guac_home/guacamole.properties", destination: "/srv/workfromhome-with-docker/guac_home/guacamole.properties"
+        #config.vm.provision :file, source: "mysql_init/schema.sql", destination: "/srv/workfromhome-with-docker/mysql_init/schema.sql"
+        #config.vm.provision :file, source: "traefik_conf/traefik.providers.file.toml", destination: "/srv/workfromhome-with-docker/traefik_conf/traefik.providers.file.toml"
+
+        # Start script
+        guacamole.vm.provision :shell, inline: "sudo /srv/workfromhome-with-docker/start.sh"
+
+       # Reboot
+        guacamole.vm.provision :shell, inline: "sudo reboot"
+    
+    end
+  
+end
