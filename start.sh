@@ -1,5 +1,5 @@
 #!/bin/bash
-docker-compose rm -f /srv/guacamole/docker-compose.yml --stop --force
+docker-compose rm --stop --force
 
 docker pull traefik:v2.6
 docker pull guacamole/guacd
@@ -16,4 +16,4 @@ mv -f $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER/guacamole-auth-totp-$GUAC_VER
 rm -rf $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER.tar.gz
 chown root:root $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER.jar
 
-docker-compose up -d
+docker-compose up -d -f /srv/guacamole/docker-compose.yml
