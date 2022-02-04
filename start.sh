@@ -16,4 +16,4 @@ mv -f $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER/guacamole-auth-totp-$GUAC_VER
 rm -rf $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER.tar.gz
 chown root:root $EXTENSION_DIR/guacamole-auth-totp-$GUAC_VER.jar
 
-docker-compose up -d -f /srv/guacamole/docker-compose.yml
+docker-compose -f /srv/guacamole/docker-compose.yml up -d
