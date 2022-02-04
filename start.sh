@@ -1,5 +1,5 @@
 #!/bin/bash
-docker-compose rm --stop --force
+docker-compose rm -f /srv/guacamole/docker-compose.yml --stop --force
 
 docker pull traefik:v2.6
 docker pull guacamole/guacd
