@@ -52,8 +52,7 @@ Vagrant.configure("2") do |config|
         guacamole.vm.provision :shell, inline: "sudo git clone https://github.com/jansvensen/guacamole.git /srv/guacamole"
 
         # Start script
-        guacamole.vm.provision :shell, inline: "cd /srv/guacamole"
-        guacamole.vm.provision :shell, inline: "sudo /bin/sh /start.sh"
+        guacamole.vm.provision :shell, inline: "sudo /bin/sh /srv/guacamole/start.sh"
 
        # Reboot
         guacamole.vm.provision :shell, inline: "sudo reboot"
