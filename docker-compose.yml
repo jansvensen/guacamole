@@ -39,6 +39,8 @@ services:
       - TRAEFIK_PROVIDERS_FILE_FILENAME=/etc/traefik/traefik.providers.file.toml
       - TRAEFIK_PROVIDERS_FILE_WATCH=true
 
+
+
   guacd:
     image: guacamole/guacd
     restart: always
@@ -64,6 +66,7 @@ services:
       - ./mysql_init/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     networks:
       - backend
+
 
   guacamole:
     image: guacamole/guacamole
