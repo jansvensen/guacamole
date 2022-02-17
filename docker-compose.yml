@@ -39,8 +39,6 @@ services:
       - TRAEFIK_PROVIDERS_FILE_FILENAME=/etc/traefik/traefik.providers.file.toml
       - TRAEFIK_PROVIDERS_FILE_WATCH=true
 
-
-
   guacd:
     image: guacamole/guacd
     restart: always
@@ -67,7 +65,6 @@ services:
     networks:
       - backend
 
-
   guacamole:
     image: guacamole/guacamole
     container_name: guacamole-app
@@ -89,7 +86,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
       - MYSQL_USER=${MYSQL_USER:-guacamole}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
-      - GUACD_HOSTNAME=127.0.0.1
+      - GUACD_HOSTNAME=guacd
       - GUACD_PORT=4822
       - LDAP_HOSTNAME=${LDAP_HOSTNAME}
       - LDAP_PORT=${LDAP_PORT:-389}
