@@ -39,14 +39,14 @@ services:
       - TRAEFIK_PROVIDERS_FILE_FILENAME=/etc/traefik/traefik.providers.file.toml
       - TRAEFIK_PROVIDERS_FILE_WATCH=true
 
-
-
   guacd:
     image: guacamole/guacd
     restart: always
     container_name: guacamole-guacd
     depends_on:
       - traefik
+    volumes:
+      - ./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf
     networks:
       - backend
 
@@ -64,10 +64,8 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql_init/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
-      - ./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf
     networks:
       - backend
-
 
   guacamole:
     image: guacamole/guacamole
