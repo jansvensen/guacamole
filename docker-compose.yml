@@ -88,7 +88,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
       - MYSQL_USER=${MYSQL_USER:-guacamole}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
-      - GUACD_HOSTNAME=IPv6::1
+      - GUACD_HOSTNAME=0:0:0:0:0:0:0:1
       - GUACD_PORT=4822
       - LDAP_HOSTNAME=${LDAP_HOSTNAME}
       - LDAP_PORT=${LDAP_PORT:-389}
