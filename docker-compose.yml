@@ -45,8 +45,8 @@ services:
     container_name: guacamole-guacd
     depends_on:
       - traefik
-    volumes:
-      - "./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf"
+    #volumes:
+    #  - "./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf"
     networks:
       - backend
 
