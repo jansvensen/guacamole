@@ -74,7 +74,7 @@ services:
     ports:
       - 8081:8080
     links:
-      - guacd:guacd
+      - guacd:IPv6::1
       - db:mysql
     depends_on:
       - db
