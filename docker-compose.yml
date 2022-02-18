@@ -74,7 +74,7 @@ services:
     ports:
       - 8081:8080
     links:
-      - guacd:IPv6::1
+      - guacd:guacd
       - db:mysql
     depends_on:
       - db
@@ -88,7 +88,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
       - MYSQL_USER=${MYSQL_USER:-guacamole}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
-      - GUACD_HOSTNAME=guacd
+      - GUACD_HOSTNAME=::1
       - GUACD_PORT=4822
       - LDAP_HOSTNAME=${LDAP_HOSTNAME}
       - LDAP_PORT=${LDAP_PORT:-389}
