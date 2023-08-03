@@ -1,6 +1,3 @@
-public_hosting_domain: democloud.devicetrust.com
-
-
 # Docker container guac
 docker_container_guac_version: 1.4.0
 docker_container_guac_name: guac
@@ -13,7 +10,7 @@ docker_container_guac_db_name: guac-db
 docker_container_guac_db_image: "mysql"
 
 docker_container_guac_volume_dir: "{{ docker_container_volume_base_dir }}/{{ docker_container_guac_name }}"
-docker_container_guac_traefik_rule: "Host(`guac.{{ public_hosting_domain }}`)"
+docker_container_guac_traefik_rule: "Host(`guac.democloud.devicetrust.com`)"
 
 guac_mfa_enabled: 'false'
 
