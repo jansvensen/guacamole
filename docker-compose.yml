@@ -45,11 +45,6 @@ services:
     container_name: guacamole-guacd
     depends_on:
       - traefik
-    environment:
-      GUACAMOLE_HOME: "/guac_home"
-      MYSQL_HOSTNAME: "mysql"
-      GUACD_HOSTNAME: "guacd"
-      GUACD_PORT: "4822"
     volumes:
       - "./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf"
     networks:
@@ -94,7 +89,7 @@ services:
       - MYSQL_USER=${MYSQL_USER:-guacamole}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
       - GUACD_HOSTNAME=guacd
-      #- GUACD_PORT=4822
+      - GUACD_PORT=4822
       - LDAP_HOSTNAME=${LDAP_HOSTNAME}
       - LDAP_PORT=${LDAP_PORT:-389}
       - LDAP_ENCRYPTION_METHOD=${LDAP_ENCRYPTION_METHOD:-none}
