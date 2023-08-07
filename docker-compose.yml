@@ -107,4 +107,3 @@ networks:
     attachable: yes
     enable_ipv6: no
     internal: no
-    state: present
