@@ -12,8 +12,8 @@ services:
     image: guacamole/guacd
     restart: always
     container_name: guacamole-guacd
-    depends_on:
-      - traefik
+    #depends_on:
+    #  - traefik
     networks:
       - backend
   
