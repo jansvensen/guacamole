@@ -16,7 +16,6 @@ services:
       - traefik
     networks:
       - backend
-    network_mode: "backend" 
   
   db:
     image: mysql
