@@ -13,7 +13,7 @@ services:
     image: mysql
     restart: always
     container_name: guacamole-db
-    environment:
+    # environment:
       #MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}"
       #MYSQL_USER: "${MYSQL_USER:-guacamole}"
       #MYSQL_PASSWORD: "${MYSQL_PASSWORD:-guacsomethingsecret8888}"
