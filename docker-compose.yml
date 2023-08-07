@@ -21,8 +21,8 @@ services:
     image: mysql
     restart: always
     container_name: guacamole-db
-    depends_on:
-      - traefik
+    #depends_on:
+    #  - traefik
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}
       - MYSQL_USER=${MYSQL_USER:-guacamole}
