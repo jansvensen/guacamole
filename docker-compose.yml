@@ -6,8 +6,6 @@ services:
     image: guacamole/guacd
     restart: always
     container_name: guacamole-guacd
-    #depends_on:
-    #  - traefik
     networks:
       - backend
   
@@ -15,19 +13,11 @@ services:
     image: mysql
     restart: always
     container_name: guacamole-db
-    #depends_on:
-    #  - traefik
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}
-      - MYSQL_USER=${MYSQL_USER:-guacamole}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
-    # env_file: "./guac/.env"
-    environment:
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}"
-      MYSQL_USER: "${MYSQL_USER:-guacamole}"
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD:-guacsomethingsecret8888}"
-      MYSQL_DATABASE: "${MYSQL_DATABASE:-guacamole}"      
+      #MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}"
+      #MYSQL_USER: "${MYSQL_USER:-guacamole}"
+      #MYSQL_PASSWORD: "${MYSQL_PASSWORD:-guacsomethingsecret8888}"
+      #MYSQL_DATABASE: "${MYSQL_DATABASE:-guacamole}"      
     volumes:
       - ./guac/mysql:/var/lib/mysql
       - ./guac/mysql_init/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
@@ -49,13 +39,12 @@ services:
     volumes:
       - "./guac/guac_conf/server.xml:/usr/local/tomcat/conf/server.xml"
       - "./guac/guac_home:/guac_home"
-    # env_file: "./guac/.env"
     environment:
       GUACAMOLE_HOME: "/guac_home"
-      MYSQL_HOSTNAME: "mysql"
-      MYSQL_DATABASE: "${MYSQL_DATABASE:-guacamole}"
-      MYSQL_USER: "${MYSQL_USER:-guacamole}"
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD:-guacsomethingsecret8888}"
+      #MYSQL_HOSTNAME: "mysql"
+      #MYSQL_DATABASE: "${MYSQL_DATABASE:-guacamole}"
+      #MYSQL_USER: "${MYSQL_USER:-guacamole}"
+      #MYSQL_PASSWORD: "${MYSQL_PASSWORD:-guacsomethingsecret8888}"
       GUACD_HOSTNAME: "guacd"
       GUACD_PORT: "4822"
       # LDAP_HOSTNAME: "${LDAP_HOSTNAME}"
@@ -72,27 +61,6 @@ services:
       # TOTP_ISSUER: "${FQDN_HOST_NAME:?err}"
     networks:
       - backend
-    labels:
-      - "traefik.enable=true"
-      # HTTP
-      - "traefik.http.routers.guac.rule=Host(`${FQDN_HOST_NAME:?err}`)"
-      - "traefik.http.routers.guac.entrypoints=http"
-      - "traefik.http.routers.guac.middlewares=https_redirect_permanent@file"
-      # HTTPS
-      - "traefik.http.routers.guac_ssl.rule=Host(`${FQDN_HOST_NAME:?err}`)"
-      - "traefik.http.routers.guac_ssl.entrypoints=https"
-      - "traefik.http.routers.guac_ssl.service=guac"
-      - "traefik.http.routers.guac_ssl.middlewares=guac_headers,guac_addprefix"
-      - "traefik.http.routers.guac_ssl.tls=true"
-      - "traefik.http.routers.guac_ssl.tls.certResolver=le"
-      - "traefik.http.routers.guac_ssl.tls.options=default"
-      # Middleware
-      - "traefik.http.middlewares.guac_headers.headers.stsincludesubdomains=true"
-      - "traefik.http.middlewares.guac_headers.headers.stsseconds=315360000"
-      - "traefik.http.middlewares.guac_headers.headers.forcestsheader=true"
-      - "traefik.http.middlewares.guac_addprefix.addprefix.prefix=/guacamole"
-      # Service
-      - "traefik.http.services.guac.loadbalancer.server.port=8080"
 
 networks:
   backend:
