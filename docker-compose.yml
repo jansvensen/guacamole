@@ -1,11 +1,5 @@
 version: '3'
 
-# Copy all config files from templates/docker_container/guac/ to config dir
-# Copy sample.env.j2 to configdir/.env
-# Copy schema.sql.j2 to /configdir/mysql_init/schema.sql"
-# ToDo: Download and install totp
-
-
 services:
 
   guacd:
@@ -28,7 +22,7 @@ services:
       - MYSQL_USER=${MYSQL_USER:-guacamole}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
-    env_file: "./guac/.env"
+    # env_file: "./guac/.env"
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}"
       MYSQL_USER: "${MYSQL_USER:-guacamole}"
@@ -55,7 +49,7 @@ services:
     volumes:
       - "./guac/guac_conf/server.xml:/usr/local/tomcat/conf/server.xml"
       - "./guac/guac_home:/guac_home"
-    env_file: "./guac/.env"
+    # env_file: "./guac/.env"
     environment:
       GUACAMOLE_HOME: "/guac_home"
       MYSQL_HOSTNAME: "mysql"
