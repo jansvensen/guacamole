@@ -45,6 +45,11 @@ services:
     container_name: guacamole-guacd
     depends_on:
       - traefik
+    environment:
+      GUACAMOLE_HOME: "/guac_home"
+      MYSQL_HOSTNAME: "mysql"
+      GUACD_HOSTNAME: "guacd"
+      GUACD_PORT: "4822"
     volumes:
       - "./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf"
     networks:
