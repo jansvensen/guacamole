@@ -62,10 +62,10 @@ services:
     depends_on:
       - traefik
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-guacsomethingsecret4444}
-      - MYSQL_USER=${MYSQL_USER:-guacamole}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
+      - MYSQL_ROOT_PASSWORD=S00perSecurePassword
+      - MYSQL_USER=guacamoleuser
+      - MYSQL_PASSWORD=S00perSecurePassword
+      - MYSQL_DATABASE=guacamole
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql_init/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
