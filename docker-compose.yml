@@ -8,6 +8,10 @@ services:
     container_name: guacamole-guacd
     volumes:
       - "./guacd_conf:/etc/guacamole/"
+    expose:
+      - "4822"
+    ports:
+      - "4822:4822"
     environment:
       - GUACD_LOG_LEVEL=debug
     networks:
