@@ -8,6 +8,8 @@ services:
     container_name: guacamole-guacd
     volumes:
       - "./guacd_conf:/etc/guacamole/"
+    environment:
+      - GUACD_LOG_LEVEL=debug
     networks:
       - backend
 
