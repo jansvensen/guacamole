@@ -63,8 +63,6 @@ services:
       - TOTP_ISSUER=${FQDN_HOST_NAME:?err}
     networks:
       - backend
-      - proxy_net
 
 networks:
-  proxy_net:
   backend:
