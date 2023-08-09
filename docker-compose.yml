@@ -6,8 +6,8 @@ services:
     image: guacamole/guacd
     restart: always
     container_name: guacamole-guacd
-    #volumes:
-    #  - "./guacd_conf/guacd.conf:/etc/guacamole/guacd.conf"
+    volumes:
+      - "./guacd_conf/:/etc/guacamole/"
     networks:
       - backend
 
