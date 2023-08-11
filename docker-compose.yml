@@ -50,9 +50,9 @@ services:
     environment:
       - GUACAMOLE_HOME=/guac_home
       - MYSQL_HOSTNAME=mysql
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-guacamole}
-      - MYSQL_USER=${MYSQL_USER:-guacamole}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-guacsomethingsecret8888}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - GUACD_HOSTNAME=guacd
       - GUACD_PORT=4822
       - LDAP_HOSTNAME=${LDAP_HOSTNAME}
