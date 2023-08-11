@@ -2,6 +2,14 @@ version: '3'
 
 services:
 
+  ubuntu:
+    image: ubuntu
+    restart: always
+    container_name: ubuntu
+    networks:
+      - backend
+
+
   guacd:
     image: guacamole/guacd
     restart: always
